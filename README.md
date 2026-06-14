@@ -1,20 +1,36 @@
-# ME5286 Lab 4 — UR5 Flashlight Assembly
+# ME5286 Lab 4 - UR5 Flashlight Assembly
 
-Automated flashlight assembly simulation using a UR5 robot arm in RoboDK, developed for the ME5286 course by Azamat Turganbayev and Aiden Wang.
+**Course:** ME5286 Robotics Labs, Spring 2026
+**Authors:** Azamat Turganbayev and Aiden Wang
+
+Automated flashlight assembly using a UR5 robot arm and pneumatic chuck, programmed via the RoboDK Python API and executed on a physical robot.
 
 ## Demo
 
-<video src="https://github.com/aturganbayev/ME5286_UR5_Flashlight_Assembly/raw/master/Azamat_Turganbayev_assembly_video.mp4" controls width="100%"></video>
+[Watch assembly video](https://github.com/aturganbayev/ME5286_UR5_Flashlight_Assembly/raw/master/Azamat_Turganbayev_assembly_video.mp4)
 
-## Overview
+## Objective
 
-The robot performs a full flashlight assembly sequence:
+Use the UR5 robot and a pneumatic chuck to fully assemble a flashlight (endcap, battery, and head) autonomously without human intervention.
 
-1. **Endcap pickup & reorientation** — picks the endcap from slot 0, rotates it to the correct orientation, and places it on a pedestal.
-2. **Head insertion** — picks the flashlight head from slot 2 and seats it in the chuck fixture, which clamps it in place.
-3. **Battery insertion** — picks the battery from slot 1 and drops it into the flashlight head opening.
-4. **Endcap threading** — picks the endcap from the pedestal, presses it onto the head, and runs 4 regrip threading strokes followed by a final torque-controlled tighten.
-5. **Unload** — releases the finished assembly into the output slot and returns the robot to home.
+## Hardware Setup
+
+- **UR5 robot arm** with Robotiq gripper (force/torque sensor, TCP offset: 211.5 mm Z, 1.25 kg)
+- **Pneumatic chuck** - holds the flashlight head during threading, controlled via solenoid valves at 80 psi
+- **Optical sensor** (C5D-AP-2A photoelectric) - prevents the chuck from closing when empty
+- **Flashlight tray** - machined aluminum tray with 3 part slots and a 3D-printed pedestal:
+  - Slot 0: endcap
+  - Slot 1: battery
+  - Slot 2: flashlight head
+  - Slot 3 / pedestal: endcap staging area after rotation
+
+## Assembly Steps
+
+1. **Endcap pickup and reorientation** - picks the endcap from slot 0, rotates it to the correct orientation, and places it on the pedestal (required first step).
+2. **Head insertion** - picks the flashlight head from slot 2 and seats it in the chuck, which clamps it in place.
+3. **Battery insertion** - picks the battery from slot 1 and drops it into the flashlight head opening with correct polarity.
+4. **Endcap threading** - picks the endcap from the pedestal, presses it onto the head, runs 4 regrip threading strokes, then finishes with `tighten_torque()` at 2 Nm.
+5. **Unload** - unclamps the chuck, removes the finished flashlight, places it in the head slot, and returns to home.
 
 ## Files
 
@@ -28,21 +44,23 @@ The robot performs a full flashlight assembly sequence:
 ## Requirements
 
 - [RoboDK](https://robodk.com/) with the `robodk` Python package
-- UR5 robot model loaded in the RoboDK station (`.rdk` file)
-- Robotiq gripper driver (`rq_*` calls)
-- Chuck fixture with `clamp()` / `unclamp()` auxiliary code
+- Post processor: `Universal_Robots_ME5286_Robot<X>.py` (required for chuck commands)
+- Robotiq gripper activated on the pendant before running
+- Chuck fixture with `clamp()` / `unclamp()` URScript functions
 
-## Running the Simulation
+## Running
 
 1. Open `ME5286_Lab4_Azamat_Turganbayev.rdk` in RoboDK.
-2. Run `ME5286_Lab4_Azamat_Turganbayev.py` via the RoboDK Python editor or `Tools > Run Script`.
+2. Set the post processor to `Universal_Robots_ME5286_Robot<X>` matching your robot number.
+3. Run `ME5286_Lab4_Azamat_Turganbayev.py` via the RoboDK Python editor or `Tools > Run Script`.
+4. Generate and upload the robot program to the UR5 via flash drive.
 
 ## Key Parameters
 
 | Parameter | Value | Description |
 |-----------|-------|-------------|
 | `SPEED` | 600 mm/s | Linear speed |
-| `ACCEL` | 700 mm/s² | Linear acceleration |
+| `ACCEL` | 700 mm/s^2 | Linear acceleration |
 | `CLEAR_Z` | 100 mm | Retract distance after pick/place |
 | Threading strokes | 4 | Regrip cycles before final tighten |
-| Final tighten torque | 2 Nm | Via `tighten_torque()` call |
+| Final tighten torque | 2 Nm | Via `tighten_torque()` - called only when nearly fully threaded |
