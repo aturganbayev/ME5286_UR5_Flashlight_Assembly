@@ -56,7 +56,6 @@ Development and implementation of an automated robotic assembly process using a 
 |------|-------------|
 | `ME5286_Lab4_Azamat_Turganbayev.py` | Main RoboDK Python script |
 | `ME5286_Lab4_Azamat_Turganbayev.rdk` | RoboDK station file (robot, targets, fixtures) |
-| `Azamat_Turganbayev_assembly_video.mp4` | Real robot assembly video recording |
 | `Turganbayev_Azamat_Lab4_report.pdf` | Lab report |
 
 ## Requirements
