@@ -4,7 +4,7 @@ Automated flashlight assembly simulation using a UR5 robot arm in RoboDK, develo
 
 ## Demo
 
-<video src="Azamat_Turganbayev_assembly_video.mp4" controls width="100%"></video>
+<video src="https://github.com/aturganbayev/ME5286_UR5_Flashlight_Assembly/raw/master/Azamat_Turganbayev_assembly_video.mp4" controls width="100%"></video>
 
 ## Overview
 
