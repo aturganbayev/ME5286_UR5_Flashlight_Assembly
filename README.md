@@ -7,7 +7,11 @@ Automated flashlight assembly using a UR5 robot arm and pneumatic chuck, program
 
 ## Demo
 
-[Watch assembly video](https://github.com/aturganbayev/ME5286_UR5_Flashlight_Assembly/raw/master/Azamat_Turganbayev_assembly_video.mp4)
+
+
+https://github.com/user-attachments/assets/83b83660-67c0-4574-9d0e-76f7a3543dea
+
+
 
 ## Objective
 
