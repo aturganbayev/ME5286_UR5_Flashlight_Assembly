@@ -1,6 +1,10 @@
 # ME5286 Lab 4 — UR5 Flashlight Assembly
 
-Automated flashlight assembly simulation using a UR5 robot arm in RoboDK, developed for the ME5286 course by Azamat Turganbayev.
+Automated flashlight assembly simulation using a UR5 robot arm in RoboDK, developed for the ME5286 course by Azamat Turganbayev and Aiden Wang.
+
+## Demo
+
+<video src="Azamat_Turganbayev_assembly_video.mp4" controls width="100%"></video>
 
 ## Overview
 
